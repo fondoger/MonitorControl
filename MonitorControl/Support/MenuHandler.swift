@@ -61,15 +61,23 @@ class MenuHandler: NSMenu, NSMenuDelegate {
     self.addDefaultMenuOptions()
   }
 
-  func addSliderItem(monitorSubMenu: NSMenu, sliderHandler: SliderHandler) {
+  func addSliderItem(monitorSubMenu: NSMenu, sliderHandler: SliderHandler, at index: Int? = nil) {
     let item = NSMenuItem()
     item.view = sliderHandler.view
-    monitorSubMenu.insertItem(item, at: 0)
+    if let index = index {
+      monitorSubMenu.insertItem(item, at: index)
+    } else {
+      monitorSubMenu.insertItem(item, at: 0)
+    }
     if app.macOS10() {
       let sliderHeaderItem = NSMenuItem()
       let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.systemGray, .font: NSFont.systemFont(ofSize: 12)]
       sliderHeaderItem.attributedTitle = NSAttributedString(string: sliderHandler.title, attributes: attrs)
-      monitorSubMenu.insertItem(sliderHeaderItem, at: 0)
+      if let index = index {
+        monitorSubMenu.insertItem(sliderHeaderItem, at: index)
+      } else {
+        monitorSubMenu.insertItem(sliderHeaderItem, at: 0)
+      }
     }
   }
 
@@ -227,8 +235,22 @@ class MenuHandler: NSMenu, NSMenuDelegate {
       
       self.insertItem(themeItem, at: self.items.count)
       
+      // Add Night Shift toggle
+      let nightShiftItem = NSMenuItem(title: NSLocalizedString("Night Shift", comment: "Shown in menu"), action: #selector(app.nightShiftClicked), keyEquivalent: "")
+      nightShiftItem.state = NightShift.shared.isEnabled ? .on : .off
+      let nightShiftIconName = NightShift.shared.isEnabled ? "moon.stars.fill" : "moon.stars"
+      nightShiftItem.image = NSImage(systemSymbolName: nightShiftIconName, accessibilityDescription: NSLocalizedString("Night Shift", comment: "Shown in menu"))
+      
+      self.insertItem(nightShiftItem, at: self.items.count)
+      
       // Add separator after theme item for better visual separation
       self.insertItem(NSMenuItem.separator(), at: self.items.count)
+      
+      // Add Night Shift strength slider when enabled
+      if NightShift.shared.isEnabled {
+        self.combinedSliderHandler[.nightShift] = SliderHandler(display: nil, command: .nightShift, title: NSLocalizedString("Night Shift Strength", comment: "Shown in menu"))
+        self.addSliderItem(monitorSubMenu: self, sliderHandler: self.combinedSliderHandler[.nightShift]!, at: self.items.count)
+      }
       
       // Icon row with settings, update, and quit (without theme icon)
       let iconSize = CGFloat(18)
@@ -288,6 +310,17 @@ class MenuHandler: NSMenu, NSMenuDelegate {
         self.insertItem(NSMenuItem.separator(), at: self.items.count)
       }
       self.insertItem(withTitle: NSLocalizedString("Toggle Dark Mode", comment: "Shown in menu"), action: #selector(app.themeClicked), keyEquivalent: "", at: self.items.count)
+      
+      // Add Night Shift toggle
+      let nightShiftTitle = NightShift.shared.isEnabled ? NSLocalizedString("Disable Night Shift", comment: "Shown in menu") : NSLocalizedString("Enable Night Shift", comment: "Shown in menu")
+      self.insertItem(withTitle: nightShiftTitle, action: #selector(app.nightShiftClicked), keyEquivalent: "", at: self.items.count)
+      
+      // Add Night Shift strength slider when enabled
+      if NightShift.shared.isEnabled {
+        self.combinedSliderHandler[.nightShift] = SliderHandler(display: nil, command: .nightShift, title: NSLocalizedString("Night Shift Strength", comment: "Shown in menu"))
+        self.addSliderItem(monitorSubMenu: self, sliderHandler: self.combinedSliderHandler[.nightShift]!, at: self.items.count)
+      }
+      
       self.insertItem(withTitle: NSLocalizedString("Settings…", comment: "Shown in menu"), action: #selector(app.prefsClicked), keyEquivalent: ",", at: self.items.count)
       let updateItem = NSMenuItem(title: NSLocalizedString("Check for updates…", comment: "Shown in menu"), action: #selector(app.updaterController.checkForUpdates(_:)), keyEquivalent: "")
       updateItem.target = app.updaterController

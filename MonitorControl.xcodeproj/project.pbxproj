@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14BCE2872E0B202C00F74F29 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BCE2862E0B202C00F74F29 /* Theme.swift */; };
+		14BCE2892E0B284C00F74F29 /* NightShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BCE2882E0B284C00F74F29 /* NightShift.swift */; };
 		28D1DDF2227FBE71004CB494 /* NSScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D1DDF1227FBE71004CB494 /* NSScreen+Extension.swift */; };
 		28D1DDF3227FC8C6004CB494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56754EB01D9A4016007BCDC5 /* Assets.xcassets */; };
 		56754EAF1D9A4016007BCDC5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56754EAE1D9A4016007BCDC5 /* main.swift */; };
@@ -80,6 +81,7 @@
 		01D6471E2AF916A800321FFB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InternetAccessPolicy.strings; sourceTree = "<group>"; };
 		01D6471F2AF916A800321FFB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14BCE2862E0B202C00F74F29 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		14BCE2882E0B284C00F74F29 /* NightShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightShift.swift; sourceTree = "<group>"; };
 		17DE48C4273E9DC500A1779F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		17DE48C5273E9DC500A1779F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InternetAccessPolicy.strings; sourceTree = "<group>"; };
 		17DE48C6273E9DC500A1779F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		F01B067F228221B6008E64DB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				14BCE2882E0B284C00F74F29 /* NightShift.swift */,
 				14BCE2862E0B202C00F74F29 /* Theme.swift */,
 				F01B0685228221B6008E64DB /* Bridging-Header.h */,
 				AA99521626FE25AB00612E07 /* AppDelegate.swift */,
@@ -640,6 +643,7 @@
 				AA44E7052703790100E06865 /* KeyboardShortcuts+Extension.swift in Sources */,
 				F0A489C4279C71B200BEDFD6 /* OnboardingViewController.swift in Sources */,
 				AA16139B26BE772E00DCF027 /* Arm64DDC.swift in Sources */,
+				14BCE2892E0B284C00F74F29 /* NightShift.swift in Sources */,
 				F0445D3820023E710025AE82 /* MainPrefsViewController.swift in Sources */,
 				28D1DDF2227FBE71004CB494 /* NSScreen+Extension.swift in Sources */,
 				AA99521726FE25AB00612E07 /* AppDelegate.swift in Sources */,

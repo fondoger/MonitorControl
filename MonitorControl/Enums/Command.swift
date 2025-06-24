@@ -168,5 +168,8 @@ enum Command: UInt8 {
   case bottomLeftScreenPurity = 0xEA
   case bottomRightScreenPurity = 0xEB
 
+  // Internal only
+  case nightShift = 255
+
   public static let brightness = luminance
 }

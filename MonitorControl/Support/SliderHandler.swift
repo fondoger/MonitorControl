@@ -227,6 +227,7 @@ class SliderHandler {
       case .audioSpeakerVolume: iconName = "speaker.wave.2.fill"
       case .brightness: iconName = "sun.max.fill"
       case .contrast: iconName = "circle.lefthalf.fill"
+      case .nightShift: iconName = "moon.stars.fill"
       default: break
       }
       let icon = SliderHandler.ClickThroughImageView()
@@ -260,6 +261,14 @@ class SliderHandler {
     slider.maxValue = 1
     if let displayToAppend = display {
       self.addDisplay(displayToAppend)
+    }
+    
+    // Set initial value for Night Shift
+    if command == .nightShift {
+      slider.floatValue = NightShift.shared.strength
+      if let percentageBox = self.percentageBox {
+        percentageBox.stringValue = String(Int(NightShift.shared.strength * 100)) + "%"
+      }
     }
   }
 
@@ -331,6 +340,12 @@ class SliderHandler {
         self.valueChangedOtherDisplay(otherDisplay: otherDisplay, value: value)
       }
     }
+    
+    // Handle Night Shift separately since it doesn't need a display
+    if self.command == .nightShift {
+      NightShift.shared.strength = value
+    }
+    
     slider.setDisplayHighlightItems(false)
   }
 

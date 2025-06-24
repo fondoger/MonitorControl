@@ -87,6 +87,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     menu.updateMenus()
   }
 
+  @objc func nightShiftClicked(_: AnyObject) {
+    os_log("Night Shift clicked", type: .info)
+    NightShift.shared.toggle()
+    menu.updateMenus()
+  }
+
   func applicationShouldHandleReopen(_: NSApplication, hasVisibleWindows _: Bool) -> Bool {
     app.prefsClicked(self)
     return true
