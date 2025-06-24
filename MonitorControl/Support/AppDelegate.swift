@@ -81,6 +81,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.settingsWindowController.show()
   }
 
+  @objc func themeClicked(_: AnyObject) {
+    os_log("Theme clicked", type: .info)
+    Theme.shared.toggle()
+    menu.updateMenus()
+  }
+
   func applicationShouldHandleReopen(_: NSApplication, hasVisibleWindows _: Bool) -> Bool {
     app.prefsClicked(self)
     return true

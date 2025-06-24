@@ -214,6 +214,23 @@ class MenuHandler: NSMenu, NSMenuDelegate {
 
   func addDefaultMenuOptions() {
     if !DEBUG_MACOS10, #available(macOS 11.0, *), prefs.integer(forKey: PrefKey.menuItemStyle.rawValue) == MenuItemStyle.icon.rawValue {
+      // Add separator before theme item for better visual separation
+      self.insertItem(NSMenuItem.separator(), at: self.items.count)
+      
+      // Add theme toggle as a standard menu item with icon and checkmark
+      let themeItem = NSMenuItem(title: NSLocalizedString("Dark Mode", comment: "Shown in menu"), action: #selector(app.themeClicked), keyEquivalent: "")
+      themeItem.state = Theme.shared.isDarkMode ? .on : .off
+      
+      // Set icon based on current theme state
+      let iconName = Theme.shared.isDarkMode ? "moon.circle.fill" : "sun.max.fill"
+      themeItem.image = NSImage(systemSymbolName: iconName, accessibilityDescription: NSLocalizedString("Dark Mode", comment: "Shown in menu"))
+      
+      self.insertItem(themeItem, at: self.items.count)
+      
+      // Add separator after theme item for better visual separation
+      self.insertItem(NSMenuItem.separator(), at: self.items.count)
+      
+      // Icon row with settings, update, and quit (without theme icon)
       let iconSize = CGFloat(18)
       let viewWidth = max(130, self.size.width)
       var compensateForBlock: CGFloat = 0
@@ -270,6 +287,7 @@ class MenuHandler: NSMenu, NSMenuDelegate {
       if app.macOS10() {
         self.insertItem(NSMenuItem.separator(), at: self.items.count)
       }
+      self.insertItem(withTitle: NSLocalizedString("Toggle Dark Mode", comment: "Shown in menu"), action: #selector(app.themeClicked), keyEquivalent: "", at: self.items.count)
       self.insertItem(withTitle: NSLocalizedString("Settings…", comment: "Shown in menu"), action: #selector(app.prefsClicked), keyEquivalent: ",", at: self.items.count)
       let updateItem = NSMenuItem(title: NSLocalizedString("Check for updates…", comment: "Shown in menu"), action: #selector(app.updaterController.checkForUpdates(_:)), keyEquivalent: "")
       updateItem.target = app.updaterController

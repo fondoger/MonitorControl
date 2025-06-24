@@ -6,3 +6,7 @@ Carthage
 
 ### Xcode ###
 xcuserdata/
+
+.claude/
+
+build/
