@@ -1039,7 +1039,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnine/SimplyCoreAudio";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
